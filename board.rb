@@ -38,4 +38,11 @@ class Board
     @grid[row][col]= value
   end
 
+  def render
+    @grid.each do |row|
+      row.each {|el| print el.to_s + " "}
+      puts
+    end
+  end
+
 end

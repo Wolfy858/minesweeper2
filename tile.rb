@@ -45,6 +45,7 @@ class Tile
   def neighbor_bomb_count
     count = 0
     neighbors.each {|neighbor| count += 1 if neighbor.bombed? }
+    count
   end
 
   def inspect
@@ -56,9 +57,22 @@ class Tile
     @bombed
   end
 
+  def to_s
+    if revealed
+      neighbor_bomb_count > 0 ? neighbor_bomb_count.to_s : " "
+    else
+      "_"
+    end
+  end
+
 end
 
 b = Board.new
-p b
+b[0, 0].reveal
+b[1, 1].reveal
+b[2, 2].reveal
+b[3, 3].reveal
+
+p b.render
 # p b[0, 0].neighbors
 # p b[3, 3].neighbors
