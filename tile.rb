@@ -23,6 +23,7 @@ class Tile
   end
 
   def reveal
+    return self if revealed
     @revealed = true
     if neighbor_bomb_count == 0
       neighbors.each {|neighbor| neighbor.reveal unless neighbor.flagged}
@@ -69,6 +70,8 @@ class Tile
   def to_s
     if revealed
       neighbor_bomb_count > 0 ? neighbor_bomb_count.to_s : " "
+    elsif flagged
+      "F"
     else
       "_"
     end

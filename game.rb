@@ -19,9 +19,9 @@ class Game
     board.render
     input = get_input
     if input[0] == "F"
-      board[input[1]].flag_unflag
+      board[*input[1]].flag_unflag
     elsif input[0] == "R"
-      board[input[1]].reveal
+      board[*input[1]].reveal
     else
       puts "Invalid input"
     end
@@ -31,7 +31,7 @@ class Game
     puts "Enter Flag(F) or Reveal(R), followed by coordinates 'F 3,3'"
     input = gets.chomp.split(" ")
     return_value = [input[0]]
-    coords = input.split(",").map {|char| char.to_i}
+    coords = input[1].split(",").map {|char| char.to_i}
     return_value << coords
     return_value
   end
