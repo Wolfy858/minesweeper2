@@ -1,3 +1,6 @@
+require './tile'
+require './board'
+
 class Game
   attr_reader :board
 
@@ -9,7 +12,7 @@ class Game
     until over?
       play_turn
     end
-    puts "You win!"
+    puts board.won? ? "You win!" : "You lose!"
   end
 
   def play_turn
@@ -24,4 +27,23 @@ class Game
     end
   end
 
+  def get_input
+    puts "Enter Flag(F) or Reveal(R), followed by coordinates 'F 3,3'"
+    input = gets.chomp.split(" ")
+    return_value = [input[0]]
+    coords = input.split(",").map {|char| char.to_i}
+    return_value << coords
+    return_value
+  end
+
+  def over?
+    board.won? || board.lost?
+  end
+
+end
+
+
+if __FILE__ == $PROGRAM_NAME
+  g = Game.new
+  g.play
 end

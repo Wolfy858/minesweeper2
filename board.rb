@@ -45,4 +45,13 @@ class Board
     end
   end
 
+  def won?
+    @grid.flatten.all? {|tile| tile.bombed? || tile.revealed}
+  end
+
+  def lost?
+    @grid.flatten.any? {|tile| tile.bombed? && tile.revealed }
+  end
+
+
 end

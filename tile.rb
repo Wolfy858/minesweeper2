@@ -1,7 +1,7 @@
 require './board'
 
 class Tile
-  attr_reader :revealed
+  attr_reader :revealed, :flagged
 
   DELTAS = [
     [1, 1],
@@ -19,11 +19,16 @@ class Tile
     @pos = pos
     @bombed = false
     @revealed = false
+    @flagged = false
   end
 
   def reveal
     @revealed = true
+    if neighbor_bomb_count == 0
+      neighbors.each {|neighbor| neighbor.reveal unless neighbor.flagged}
+    end
   end
+
 
   def bombed?
     @bombed
@@ -31,6 +36,10 @@ class Tile
 
   def bomb
     @bombed = true
+  end
+
+  def flag_unflag
+    @flagged ? @flagged = false : @flagged = true
   end
 
   def neighbors
@@ -65,14 +74,16 @@ class Tile
     end
   end
 
+
+
 end
 
-b = Board.new
-b[0, 0].reveal
-b[1, 1].reveal
-b[2, 2].reveal
-b[3, 3].reveal
+# b = Board.new
+# b[0, 0].reveal
+# b[1, 1].reveal
+# b[2, 2].reveal
+# b[3, 3].reveal
 
-p b.render
+# p b.render
 # p b[0, 0].neighbors
 # p b[3, 3].neighbors
